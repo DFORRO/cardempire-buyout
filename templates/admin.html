@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>Admin Panel</h1>
+            <p>Logged in as: <strong>{{ user }}</strong></p>
+            <a href="{{ url_for('logout') }}" class="btn-danger">Logout</a>
+        </header>
+
+        <!-- Assign Order Section -->
+        <section class="card">
+            <h2>Assign Order</h2>
+            {% if unassigned_orders %}
+                <form id="assignOrderForm">
+                    <label for="OrderId">Select an Order:</label>
+                    <select id="OrderId" name="OrderId" required>
+                        {% for order in unassigned_orders %}
+                            <option value="{{ order.OrderId }}">Order #{{ order.OrderId }} ({{ order.email }})</option>
+                        {% endfor %}
+                    </select>
+                    <div class="button-group">
+                        <button type="button" id="assignOrderButton" class="btn-primary">Assign to Me</button>
+                    </div>
+                </form>
+            {% else %}
+                <p>No unassigned orders available.</p>
+            {% endif %}
+        </section>
+
+        <!-- View Assigned Orders -->
+        <section class="card">
+            <h2>View Assigned Orders</h2>
+            <label for="order_select">Select an Assigned Order:</label>
+            <select id="order_select" name="order_id">
+                <option value="">-- Select Order --</option>
+            </select>
+        </section>
+
+        <!-- Order Details Table -->
+        <section class="card">
+            <h2>Order Details</h2>
+            <table id="order_table">
+                <thead>
+                    <tr>
+                        <th>Game</th>
+                        <th>Set</th>
+                        <th>Name</th>
+                        <th>Image</th>
+                        <th>Rarity</th>
+                        <th>Reverse Holo</th>
+                        <th>Condition</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Accepted</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in order_items %}
+                    <tr>
+                        <td>{{ item.game }}</td>
+                        <td>{{ item.set }}</td>
+                        <td>{{ item.name }}</td>
+                        <td class="image-btn-cell">
+                            <button class="show-image-btn" data-product-id="{{ item.ProductId or '' }}" title="Show Image">📷 Show</button>
+                        </td>
+                        <td>{{ item.rarity }}</td>
+                        <td>{{ item.reverse_holo }}</td>
+                        <td>{{ item.condition }}</td>
+                        <td contenteditable="true" class="editable highlight-editable" data-field="price">{{ item.price }}</td>
+                        <td contenteditable="true" class="editable highlight-editable" data-field="quantity">{{ item.quantity }}</td>
+                        <td>
+                            <input type="checkbox" class="toggle-accepted" data-field="IsAcceptedSingle" {{ "checked" if item.accepted else "" }}>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Trade Products Section (Zobrazí sa len keď je Trade Type = Tovar) -->
+        <section class="card" id="trade-products-section" style="display: none;">
+            <h2>Trade Products</h2>
+            <table id="trade-products-table">
+                <thead>
+                    <tr>
+                        <th>Product Code</th>
+                        <th>Product Name</th>
+                        <th>Quantity</th>
+                        <th>Amount</th>
+                        <th>Accepted</th> <!-- Zmenené z "IsAccepted" na "Accepted" na frontende -->
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Dynamically populated by JavaScript -->
+                </tbody>
+            </table>
+            <div class="button-group">
+                <button type="button" id="updateTradeProductsButton" class="btn-primary">Update Trade Products</button>
+            </div>
+            <p>Total Buyout Amount: <strong id="total-buyout-amount">0€</strong></p>
+            <p>Total Trade Amount: <strong id="total-trade-amount">0€</strong></p>
+            <p>Remaining Balance / Amount to Pay: <strong id="remaining-balance">0€</strong></p>
+        </section>
+
+        <section class="card">
+            <div class="button-group">
+                <button type="button" id="submitChangesButton" class="btn-primary">Submit Changes</button>
+                <button type="button" id="RecalculatePrices" class="btn-secondary">Recalculate Prices</button>
+            </div>
+        </section>
+    </div>
+
+    <!-- Image container -->
+    <div id="order-image-container" style="display: none;"></div>
+
+    <!-- Link to the JavaScript file -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+    <script type="module" src="{{ url_for('static', filename='js/image-utils.js') }}"></script>
+    <script type="module" src="{{ url_for('static', filename='js/admin-panel.js') }}"></script>
+    <script type="module" src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

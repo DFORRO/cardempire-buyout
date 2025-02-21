@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Card Buyout System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <!-- Include Select2 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet">
+
+    <!-- Include jQuery (required for Select2) -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Include Select2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- Header Section -->
+        <header class="header">
+            <img src="{{ url_for('static', filename='images/logo.jpg') }}" alt="Card Empire Logo" class="logo">
+            <h1>Card Buyout System</h1>
+            <div class="user-info">
+                <p>Welcome, <strong>{{ user }}</strong></p>
+                <a href="{{ url_for('logout') }}" class="btn-secondary">Logout</a>
+            </div>
+        </header>
+
+        <main>
+            <!-- User Details Section -->
+            <section class="card" id="user-details">
+                <h2>User Details</h2>
+                <form id="buyoutForm">
+                    <div class="form-group">
+                        <label for="TradeType">Trade Type:</label>
+                        <select id="TradeType" name="TradeType" required>
+                            <option value="Hotovost" selected>Hotovost</option>
+                            <option value="Tovar">Tovar</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="PickupType">Pickup Type:</label>
+                        <select id="PickupType" name="PickupType" required>
+                            <option value="">-- Select Pickup Type --</option>
+                            <option value="Osobne Bratislava">Osobne Bratislava</option>
+                            <option value="Osobne Banska Bystrica">Osobne Banska Bystrica</option>
+                            <option value="Packeta na adresu">Packeta na adresu</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="PhoneNumber">Phone Number:</label>
+                        <input type="tel" id="PhoneNumber" name="PhoneNumber" pattern="^\+?[0-9]{9,15}$" required>
+                        <small>Format: +421XXXXXXXXX or 09XXXXXXXX</small>
+                    </div>
+
+                    <div class="form-group address-field" style="display:none;">
+                        <label for="FirstName">First Name:</label>
+                        <input type="text" id="FirstName" name="FirstName">
+                    </div>
+
+                    <div class="form-group address-field" style="display:none;">
+                        <label for="LastName">Last Name:</label>
+                        <input type="text" id="LastName" name="LastName">
+                    </div>
+
+                    <div class="form-group address-field" style="display:none;">
+                        <label for="Country">Country:</label>
+                        <select id="Country" name="Country">
+                            <option value="">-- Select Country --</option>
+                            <option value="Slovensko">Slovensko</option>
+                            <option value="Cesko">Cesko</option>
+                            <option value="Rakusko">Rakusko</option>
+                            <option value="Madarsko">Madarsko</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group address-field" style="display:none;">
+                        <label for="City">City:</label>
+                        <input type="text" id="City" name="City">
+                    </div>
+
+                    <div class="form-group address-field" style="display:none;">
+                        <label for="StreetAddress">Street Address:</label>
+                        <input type="text" id="StreetAddress" name="StreetAddress">
+                    </div>
+
+                    <div class="form-group address-field" style="display:none;">
+                        <label for="PostalCode">Postal Code:</label>
+                        <input type="text" id="PostalCode" name="PostalCode">
+                    </div>
+
+                    <div class="form-group address-field" style="display:none;">
+                        <label for="PickupPoint">Pickup Point:</label>
+                        <input type="text" id="PickupPoint" name="PickupPoint" placeholder="Enter Pickup Point" required>
+                        <small class="form-note">Please enter a valid pickup location where the package can be delivered.</small>
+                    </div>
+
+                    <div class="form-group address-field" style="display:none;">
+                        <label for="WhereToSendCards">Where to Send Cards?:</label>
+                        <input type="text" id="WhereToSendCards" name="WhereToSendCards" value="BRATISLAVA, Slovnaftská 102" readonly>
+                        <button type="button" id="copyToClipboardButton" class="copy-btn">Copy to Clipboard</button>
+                        <small class="form-note">Please send your cards to the above address.</small>
+                    </div>
+                </form>
+            </section>
+
+            <!-- Add Item Section -->
+            <section id="form-section" class="card">
+                <h2>Add Item</h2>
+                <form id="buyoutForm">
+                    <div class="form-group">
+                        <label for="game">Game:</label>
+                        <select id="game" name="game" required>
+                            <option value=""> Select Game </option>
+                            <option value="pokemon">Pokemon</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="edition">Edition:</label>
+                        <select id="edition" name="edition" disabled required>
+                            <option value=""> Select Edition </option>
+                        </select>
+                    </div>
+                    <div class="form-group product-container">
+                        <div class="product-selection">
+                            <label for="product">Select Product</label>
+                            <select id="product" class="select2" name="product" required>
+                                <option value="">-- Search for a Product --</option>
+                            </select>
+                            <input type="hidden" id="product-id" name="product-id">
+                        </div>
+                        <div id="buyout-product-image-container"></div>
+                    </div>                
+                    <div class="form-group">
+                        <label for="rarity">Rarity:</label>
+                        <select id="rarity" name="rarity" disabled required>
+                            <option value=""> Select Rarity </option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="isReverseHolo">Reverse Holo:</label>
+                        <select id="isReverseHolo" name="isReverseHolo" disabled required>
+                            <option value="No" selected>No</option>
+                            <option value="Yes">Yes</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="condition">Condition:</label>
+                        <select id="condition" name="condition" required>
+                            <option value="Near Mint" selected>Near Mint</option>
+                            <option value="Lightly Played">Lightly Played</option>
+                            <option value="Moderately Played">Moderately Played</option>
+                            <option value="Heavily Played">Heavily Played</option>
+                            <option value="Damaged">Damaged</option>
+                        </select>
+                    </div>                
+                    <div class="form-group">
+                        <label for="price">Price:</label>
+                        <input type="text" id="price" name="price" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="quantity">Quantity:</label>
+                        <input type="number" id="quantity" name="quantity" min="1" value="1">
+                    </div>
+                    <button type="button" id="addToOrderButton" class="btn-primary">Add to Order</button>
+                </form>
+            </section>
+
+            <!-- Order List Section -->
+            <section class="card" id="order-section">
+                <h2>Order List</h2>
+                <div class="table-container">
+                    <table id="orderTable">
+                        <thead>
+                            <tr>
+                                <th>Select</th>
+                                <th>Game</th>
+                                <th>Edition</th>
+                                <th>Product</th>
+                                <th>Rarity</th>
+                                <th>Reverse Holo</th>
+                                <th>Condition</th>
+                                <th>Quantity</th>
+                                <th>Price</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Dynamic Rows -->
+                        </tbody>
+                    </table>
+                </div>
+                <div class="button-group">
+                    <button type="button" id="deleteSelectedButton" class="btn-danger">Delete Selected</button>
+                    <button type="button" id="resetFormButton" class="btn-secondary">Reset Form</button>
+                </div>
+            </section>
+
+            <!-- Buyout Calculation Section -->
+            <section class="card" id="trade-section">
+                <h2>Buyout Calculation</h2>
+                <button id="calculate-buyout-btn" class="btn-primary">Calculate Buyout Amount</button>
+                <p>Total Buyout Amount: <strong id="total-buyout-amount">0€</strong></p>
+                <h2>Select E-shop Products</h2>
+                <label for="eshop-product-dropdown">Choose a Product:</label>
+                <select id="eshop-product-dropdown" class="select2">
+                    <option value="">-- Select Product --</option>
+                </select>
+                <label for="eshop-product-quantity">Quantity:</label>
+                <input type="number" id="eshop-product-quantity" min="1" value="1">
+                <button id="add-eshop-product-btn" class="btn-secondary">Add Product</button>
+                <p>Total Selected Amount: <strong id="total-selected-amount">0€</strong></p>
+                <p id="balance-display">Remaining Balance: 0€</p>
+                <table id="eshop-products-table">
+                    <thead>
+                        <tr>
+                            <th>Select</th>
+                            <th>Product</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- E-shop products will be dynamically added here -->
+                    </tbody>
+                </table>
+                <button id="deleteSelectedEshopButton" class="btn-danger">Delete Selected</button>
+            </section>
+
+            <section class="card">
+                <div class="button-group">
+                    <button type="submit" id="submitOrderButton" class="btn btn-primary">Submit Order</button>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script type="module" src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

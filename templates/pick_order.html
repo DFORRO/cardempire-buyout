@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pick Order</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+
+    <div class="container">
+        <header class="header">
+            <h1>Pick an Order</h1>
+            <p>Logged in as: <strong>{{ user }}</strong></p>
+            <a href="{{ url_for('logout') }}" class="btn-danger">Logout</a>
+        </header>
+
+        <section class="card">
+            <h2>Available Orders</h2>
+
+            {% if orders %}
+                <form method="POST">
+                    <label for="order_id">Select an Order:</label>
+                    <select name="order_id" required>
+                        {% for order in orders %}
+                            <option value="{{ order.id }}">Order #{{ order.id }}</option>
+                        {% endfor %}
+                    </select>
+                    <button type="submit" class="btn-primary">Assign to Me</button>
+                </form>
+            {% else %}
+                <p>No available orders at the moment.</p>
+            {% endif %}
+        </section>
+    </div>
+    
+    <script type="module" src="{{ url_for('static', filename='js/main.js') }}"></script>
+
+</body>
+</html>

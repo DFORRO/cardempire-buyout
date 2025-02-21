@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Card Buyout System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+
+    <div class="container">
+        <header class="header">
+            <h1>Card Buyout System</h1>
+            <img src="{{ url_for('static', filename='images/logo.jpg') }}" alt="Card Empire Logo" class="logo">
+        </header>
+
+        <section id="guest-section" class="card">
+            <h2>Quick Access</h2>
+            <p>Continue as a guest to start adding items right away.</p>
+            <form method="POST">
+                <button type="submit" name="continue_as_guest" class="btn-primary">Continue as Guest</button>
+            </form>
+        </section>
+
+        <section id="login-section" class="card">
+            <h2>Login</h2>
+            <p>Or log in to save your progress and track your orders.</p>
+
+            {% if error %}
+                <p class="error-message">{{ error }}</p>
+            {% endif %}
+
+            <form method="POST">
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                </div>
+
+                <button type="submit" class="btn-secondary">Login</button>
+            </form>
+        </section>
+    </div>
+
+</body>
+</html>
