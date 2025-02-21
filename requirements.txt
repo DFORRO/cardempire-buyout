@@ -1,0 +1,6 @@
+flask
+pyodbc
+hashlib
+os
+datetime
+uuid

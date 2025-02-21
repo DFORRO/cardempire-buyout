@@ -1,0 +1,475 @@
+/* General styles */
+body {
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #F5F7FA; /* Light gray background for subtle contrast */
+    color: #2C3E50; /* Dark gray for text */
+    line-height: 1.6;
+    overflow-x: hidden;
+    font-size: 14px;
+}
+
+/* Container */
+.container {
+    max-width: 1400px;
+    margin: 20px auto;
+    padding: 24px;
+    background-color: #FFFFFF;
+    border-radius: 16px;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+    overflow-x: hidden;
+    transition: box-shadow 0.3s ease;
+}
+
+.container:hover {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+/* Header */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid #E0E6ED;
+}
+
+.header h1 {
+    font-size: 24px;
+    font-weight: 700;
+    color: #2C3E50;
+    margin: 0;
+}
+
+.logo {
+    width: 70px;
+    height: auto;
+    transition: transform 0.3s ease;
+}
+
+.logo:hover {
+    transform: scale(1.1);
+}
+
+/* Card Style for Sections */
+.card {
+    background-color: #FFFFFF;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    margin-bottom: 24px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+.card h2 {
+    font-size: 18px;
+    margin-bottom: 18px;
+    color: #8A2BE2; /* Jemnejšia fialová */
+    border-bottom: 2px solid #8A2BE2;
+    padding-bottom: 10px;
+    font-weight: 600;
+}
+
+/* Form Elements */
+.form-group {
+    margin-bottom: 18px;
+}
+
+label {
+    font-weight: 600;
+    margin-bottom: 8px;
+    display: block;
+    color: #4A4A4A;
+    font-size: 14px;
+}
+
+input,
+select {
+    width: 100%;
+    padding: 10px;
+    border: 1.5px solid #E0E6ED;
+    border-radius: 8px;
+    box-sizing: border-box;
+    font-size: 14px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    background-color: #F9FBFD;
+}
+
+input:focus,
+select:focus {
+    border-color: #8A2BE2; /* Jemnejšia fialová pre focus */
+    box-shadow: 0 0 8px rgba(138, 43, 226, 0.3); /* Softer shadow for focus */
+    outline: none;
+}
+
+/* Buttons */
+button {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #8A2BE2, #A569BD); /* Jemnejšia fialová gradient */
+    color: white;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, #A569BD, #8A2BE2);
+}
+
+.btn-danger {
+    background: linear-gradient(135deg, #E74C3C, #C0392B);
+    color: white;
+}
+
+.btn-danger:hover {
+    background: linear-gradient(135deg, #C0392B, #E74C3C);
+}
+
+.btn-secondary {
+    background: linear-gradient(135deg, #E0E6ED, #D9E1E8);
+    color: #2C3E50;
+}
+
+.btn-secondary:hover {
+    background: linear-gradient(135deg, #D9E1E8, #E0E6ED);
+}
+
+/* Button Group */
+.button-group {
+    display: flex;
+    gap: 12px;
+    margin-top: 24px;
+    flex-wrap: wrap;
+}
+
+/* Table Container */
+.table-container {
+    width: 100%;
+    overflow-x: auto;
+    padding-bottom: 12px;
+    border-radius: 8px;
+}
+
+/* Table */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #FFFFFF;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    text-align: left;
+}
+
+/* Table Headers & Cells */
+table th,
+table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #E0E6ED;
+    font-size: 14px;
+    white-space: nowrap;
+    word-break: keep-all;
+    min-width: 100px;
+}
+
+/* Table Header */
+table th {
+    background-color: #8A2BE2; /* Jemnejšia fialová */
+    color: white;
+    font-weight: 600;
+    text-align: left;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+}
+
+/* Highlight Editable Cells */
+.highlight-editable {
+    background-color: #FFF3E0;
+    border: 1.5px solid #FFD700; /* Gold for TCG rarity */
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out, border-color 0.3s ease;
+}
+
+.highlight-editable:hover {
+    background-color: #FFE0B2;
+    border-color: #D4A017; /* Darker gold on hover */
+}
+
+/* Dropdown Styling */
+.editable-dropdown {
+    width: 100%;
+    padding: 8px;
+    border-radius: 8px;
+    border: 1.5px solid #E0E6ED;
+    background-color: #F9FBFD;
+    font-size: 14px;
+    cursor: pointer;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.editable-dropdown:focus {
+    border-color: #8A2BE2; /* Jemnejšia fialová */
+    box-shadow: 0 0 8px rgba(138, 43, 226, 0.3);
+    outline: none;
+}
+
+/* Toggle Switch Styling */
+.toggle-accepted {
+    appearance: none;
+    width: 48px;
+    height: 24px;
+    background-color: #D9E1E8;
+    border-radius: 12px;
+    position: relative;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.toggle-accepted:checked {
+    background-color: #4CAF50;
+}
+
+.toggle-accepted::before {
+    content: "";
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: white;
+    border-radius: 50%;
+    top: 2px;
+    left: 2px;
+    transition: transform 0.3s ease, left 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.toggle-accepted:checked::before {
+    left: 24px;
+    transform: translateX(2px);
+}
+
+/* Product Preview Image */
+.product-preview-image {
+    width: 180px;
+    height: auto;
+    border: 2px solid #E0E6ED;
+    border-radius: 10px;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+    background: white;
+    padding: 8px;
+    margin-left: 15px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.product-preview-image:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+/* Product Image Container */
+#product-image-container img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+    background: white;
+    transition: transform 0.3s ease;
+}
+
+#product-image-container img:hover {
+    transform: scale(1.05);
+}
+
+/* Order Product Image */
+.order-product-image {
+    width: 180px;
+    height: auto;
+    border: 2px solid #E0E6ED;
+    border-radius: 10px;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    z-index: 1000;
+    transition: transform 0.3s ease;
+}
+
+.order-product-image:hover {
+    transform: scale(1.05);
+}
+
+/* Order Image Container */
+#order-image-container {
+    position: absolute;
+    max-width: 200px;
+    display: none;
+    background: transparent; /* Zabránime bielemu pozadiu */
+    border: none; /* Odstránime okraj */
+    box-shadow: none; /* Odstránime tieň */
+    padding: 0; /* Odstránime padding */
+    z-index: 1000;
+    transition: all 0.3s ease-in-out;
+    border-radius: 10px;
+}
+
+#order-image-container img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+    background: #FFFFFF;
+    transition: transform 0.3s ease;
+}
+
+#order-image-container img:hover {
+    transform: scale(1.05);
+}
+
+/* Show Image Button */
+.show-image-btn {
+    background: linear-gradient(135deg, #8A2BE2, #A569BD); /* Jemnejšia fialová gradient */
+    border: none;
+    border-radius: 8px;
+    padding: 8px 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    color: white;
+    font-size: 18px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.show-image-btn:hover {
+    background: linear-gradient(135deg, #A569BD, #8A2BE2);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.show-image-btn:active {
+    transform: translateY(0);
+}
+
+/* Image Button Cell */
+.image-btn-cell {
+    text-align: center;
+    vertical-align: middle;
+}
+
+/* Product Container */
+.product-container {
+    display: flex;
+    align-items: flex-start;
+    gap: 24px;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+/* Product Selection */
+.product-selection {
+    flex: 1;
+    max-width: 65%;
+}
+
+/* Product Image Container */
+#product-image-container {
+    min-width: 220px;
+    max-width: 260px;
+    padding: 12px;
+    border: 2px solid #E0E6ED;
+    border-radius: 12px;
+    background-color: #F9FBFD;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+    display: none;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+#product-image-container:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .product-container {
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    .product-selection {
+        max-width: 100%;
+    }
+
+    #product-image-container {
+        max-width: 100%;
+        min-width: auto;
+    }
+
+    .container {
+        margin: 15px auto;
+        padding: 15px;
+    }
+
+    .card {
+        padding: 18px;
+    }
+
+    .button-group {
+        flex-direction: row; /* Keep horizontal on medium screens */
+        gap: 8px;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        margin: 10px auto;
+        padding: 10px;
+    }
+
+    .header h1 {
+        font-size: 20px;
+    }
+
+    .card {
+        padding: 15px;
+    }
+
+    .card h2 {
+        font-size: 16px;
+    }
+
+    .button-group {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    button {
+        width: 100%;
+        padding: 8px 16px;
+    }
+
+    label, input, select, table th, table td {
+        font-size: 12px; /* Smaller fonts on mobile */
+    }
+}
